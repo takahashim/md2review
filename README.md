@@ -1,12 +1,13 @@
-# Redcarpet::Review
+# md2review
 
-TODO: Write a gem description
+md2review is a converter from Markdown into ReVIEW.
+This command uses Redcarpet gem to parse markdown.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'redcarpet-review'
+    gem 'md2review'
 
 And then execute:
 
@@ -14,11 +15,13 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install redcarpet-review
+    $ gem install md2review
 
 ## Usage
 
-TODO: Write usage instructions here
+You can use the commmand md2review as:
+
+   $ md2review your-document.md > your-document.re
 
 ## Contributing
 
