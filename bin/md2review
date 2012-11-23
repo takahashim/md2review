@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+# Usage: redcarpet [--parse-<extension>...] [--render-<extension>...] [--smarty] [<file>...]
+# Convert one or more Markdown files to ReVIEW and write to standard output. With
+# no <file> or when <file> is '-', read Markdown source text from standard input.
+# With <extension>s, perform additional Markdown processing before writing output.
+if ARGV.include?('--help')
+  File.read(__FILE__).split("\n").grep(/^# /).each do |line|
+    puts line[2..-1]
+  end
+  exit 0
+end
+
+root = File.expand_path('../../', __FILE__)
+$:.unshift File.expand_path('lib', root)
+
+require 'redcarpet'
+require 'redcarpet/render/review'
+
+render_extensions = {}
+parse_extensions = {}
+parse_extensions[:tables] = true
+parse_extensions[:strikethrough] = true
+parse_extensions[:fenced_code_blocks] = true
+
+
+renderer = Redcarpet::Render::ReVIEW
+
+ARGV.delete_if do |arg|
+  if arg =~ /^--render-([\w-]+)$/
+    arg = $1.gsub('-', '_')
+    render_extensions[arg.to_sym] = true
+  elsif arg =~ /^--parse-([\w-]+)$/
+    arg = $1.gsub('-', '_')
+    parse_extensions[arg.to_sym] = true
+  else
+    false
+  end
+end
+
+render = renderer.new(render_extensions)
+md = Redcarpet::Markdown.new(render, parse_extensions)
+md_doc = ARGF.read
+review_doc = md.render(md_doc)
+STDOUT.write review_doc
