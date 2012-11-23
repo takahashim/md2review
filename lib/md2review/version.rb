@@ -1,5 +1,3 @@
-module Redcarpet
-  module Review
-    VERSION = "0.0.1"
-  end
+module MD2ReVIEW
+  VERSION = "1.0.0"
 end
