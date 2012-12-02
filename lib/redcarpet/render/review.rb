@@ -60,6 +60,7 @@ module Redcarpet
         if header
           header_text = "#{header}-----------------\n"
         end
+        body.chomp!
         "//table[#{table_id()}][]{\n#{header_text}#{body}\n//}\n"
       end
 
