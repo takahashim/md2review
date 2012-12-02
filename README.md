@@ -21,7 +21,7 @@ Or install it yourself as:
 
 You can use the commmand md2review as:
 
-   $ md2review your-document.md > your-document.re
+    $ md2review your-document.md > your-document.re
 
 ## Contributing
 
