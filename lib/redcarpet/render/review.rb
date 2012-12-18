@@ -12,6 +12,10 @@ module Redcarpet
         text
       end
 
+      def escape_inline(text)
+        text.gsub(/\}/){'\\}'}
+      end
+
       def block_code(code, language)
         code_text = normal_text(code).chomp
         lang = ""
@@ -38,7 +42,7 @@ module Redcarpet
       end
 
       def codespan(code)
-        "@<tt>{#{normal_text(code)}}"
+        "@<tt>{#{escape_inline(code)}}"
       end
 
       def header(title, level)
@@ -81,23 +85,23 @@ module Redcarpet
       end
 
       def autolink(link, link_type)
-        "@<href>{#{link}}"
+        "@<href>{#{escape_inline(link)}}"
       end
 
       def link(link, title, content)
-        "@<href>{#{link},#{content}}"
+        "@<href>{#{escape_inline(link)},#{escape_inline(content)}}"
       end
 
       def double_emphasis(text)
-        "@<strong>{#{text}}"
+        "@<strong>{#{escape_inline(text)}}"
       end
 
       def emphasis(text)
-        "@<b>{#{text}}"
+        "@<b>{#{escape_inline(text)}}"
       end
 
       def strikethrough(text)
-        "@<del>{#{text}}"
+        "@<del>{#{escape_inline(text)}}"
       end
 
       def linebreak
