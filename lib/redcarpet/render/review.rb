@@ -6,6 +6,10 @@ module Redcarpet
         super()
         @table_num = 0
         @table_id_prefix = "tbl"
+        @header_offset = 0
+        if render_extensions[:header_offset]
+          @header_offset = render_extensions[:header_offset]
+        end
       end
 
       def normal_text(text)
@@ -46,7 +50,8 @@ module Redcarpet
       end
 
       def header(title, level)
-        case level
+        l = level - @header_offset
+        case l
         when 1
           "\n= #{title}\n"
         when 2

@@ -26,7 +26,9 @@ parse_extensions[:fenced_code_blocks] = true
 renderer = Redcarpet::Render::ReVIEW
 
 ARGV.delete_if do |arg|
-  if arg =~ /^--render-([\w-]+)$/
+  if arg =~ /^--render-header-offset\s*=\s*([012])$/
+    render_extensions[:header_offset] = $1.to_i
+  elsif arg =~ /^--render-([\w-]+)$/
     arg = $1.gsub('-', '_')
     render_extensions[arg.to_sym] = true
   elsif arg =~ /^--parse-([\w-]+)$/
