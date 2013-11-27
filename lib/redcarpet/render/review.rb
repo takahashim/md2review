@@ -20,6 +20,10 @@ module Redcarpet
         text.gsub(/\}/){'\\}'}
       end
 
+      def escape_href(text)
+        text.gsub(/,/){'\\,'}
+      end
+
       def block_code(code, language)
         code_text = normal_text(code).chomp
         lang = ""
@@ -90,11 +94,11 @@ module Redcarpet
       end
 
       def autolink(link, link_type)
-        "@<href>{#{escape_inline(link)}}"
+        "@<href>{#{escape_href(link)}}"
       end
 
       def link(link, title, content)
-        "@<href>{#{escape_inline(link)},#{escape_inline(content)}}"
+        "@<href>{#{escape_href(link)},#{escape_inline(content)}}"
       end
 
       def double_emphasis(text)
