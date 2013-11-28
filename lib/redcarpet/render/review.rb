@@ -21,7 +21,7 @@ module Redcarpet
       end
 
       def escape_href(text)
-        text.gsub(/,/){'\\,'}
+        text.to_s.gsub(/,/){'\\,'}
       end
 
       def block_code(code, language)
