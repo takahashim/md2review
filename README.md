@@ -1,6 +1,6 @@
 # md2review
 
-{<img src="https://secure.travis-ci.org/takahashim/md2review.png"/>}[http://travis-ci.org/takahashim/md2review]
+[![Build Status](https://api.travis-ci.org/takahashim/md2review.png)](https://travis-ci.org/takahashim/md2review)
 
 md2review is a converter from Markdown into ReVIEW.
 This command uses Redcarpet gem to parse markdown.
