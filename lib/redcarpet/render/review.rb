@@ -53,7 +53,7 @@ module Redcarpet
         "@<tt>{#{escape_inline(code)}}"
       end
 
-      def header(title, level)
+      def header(title, level, anchor="")
         l = level - @header_offset
         case l
         when 1

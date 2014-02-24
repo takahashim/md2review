@@ -35,4 +35,9 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n\n@<href>{http://exmaple.com/foo\\,bar,example}\n", @markdown.render("[example](http://exmaple.com/foo,bar)")
   end
 
+  def test_header
+    assert_respond_to @markdown, :render
+    assert_equal "\n= AAA\n\n\nBBB\n\n== ccc\n\n\nddd\n", @markdown.render("#AAA\nBBB\n\n##ccc\n\nddd\n")
+  end
+
 end
