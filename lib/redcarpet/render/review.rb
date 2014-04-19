@@ -27,10 +27,15 @@ module Redcarpet
       def block_code(code, language)
         code_text = normal_text(code).chomp
         lang = ""
+        caption = ""
         if language
-          lang = "#\@# lang: #{language}\n"
+          if language =~ /caption=\"(.*)\"/
+            caption = "["+$1+"]"
+          else
+            lang = "#\@# lang: #{language}\n"
+          end
         end
-        "\n#{lang}//emlist{\n#{code_text}\n//}\n"
+        "\n#{lang}//emlist#{caption}{\n#{code_text}\n//}\n"
       end
 
       def block_quote(quote)

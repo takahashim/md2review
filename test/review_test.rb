@@ -40,6 +40,16 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n= AAA\n\n\nBBB\n\n== ccc\n\n\nddd\n", @markdown.render("#AAA\nBBB\n\n##ccc\n\nddd\n")
   end
 
+  def test_code_fence_with_caption
+    rd = render_with({:fenced_code_blocks => true}, %Q[~~~ {caption="test"}\ndef foo\n  p "test"\nend\n~~~\n])
+    assert_equal %Q[\n//emlist[test]{\ndef foo\n  p "test"\nend\n//}\n], rd
+  end
+
+  def test_code_fence_without_flag
+    rd = render_with({}, %Q[~~~ {caption="test"}\ndef foo\n  p "test"\nend\n~~~\n])
+    assert_equal %Q[\n\n~~~ {caption="test"}\ndef foo\n  p "test"\nend\n~~~\n], rd
+  end
+
   def test_group_ruby
     rd = render_with({:ruby => true}, "{電子出版|でんししゅっぱん}を手軽に\n")
     assert_equal %Q[\n\n@<ruby>{電子出版,でんししゅっぱん}を手軽に\n], rd
