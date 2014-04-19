@@ -40,4 +40,18 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n= AAA\n\n\nBBB\n\n== ccc\n\n\nddd\n", @markdown.render("#AAA\nBBB\n\n##ccc\n\nddd\n")
   end
 
+  def test_group_ruby
+    rd = render_with({:ruby => true}, "{電子出版|でんししゅっぱん}を手軽に\n")
+    assert_equal %Q[\n\n@<ruby>{電子出版,でんししゅっぱん}を手軽に\n], rd
+  end
+
+  def test_tcy
+    rd = render_with({:tcy => true}, "昭和^53^年\n")
+    assert_equal %Q[\n\n昭和@<tcy>{53}年\n], rd
+  end
+
+  def test_footnote
+    rd = render_with({:footnotes=>true}, "これは脚注付き[^1]の段落です。\n\n[^1]: そして、これが脚注です。\n")
+    assert_equal %Q|\n\nこれは脚注付き@<fn>{1}の段落です。\n\n//footnote[1][そして、これが脚注です。]\n|, rd
+  end
 end

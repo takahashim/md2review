@@ -2,7 +2,7 @@ module Redcarpet
   module Render
     class ReVIEW < Base
 
-      def initialize(render_extensions)
+      def initialize(render_extensions={})
         super()
         @table_num = 0
         @table_id_prefix = "tbl"
@@ -142,6 +142,26 @@ module Redcarpet
       def table_id()
         @table_num += 1
         "#{@table_id_prefix}#{@table_num}"
+      end
+
+      def ruby(text)
+        rt, rb = text.split(/\|/, 2)
+        "@<ruby>{#{escape_inline(rt)},#{escape_inline(rb)}}"
+      end
+
+      def tcy(text)
+        "@<tcy>{#{escape_inline(text)}}"
+      end
+
+      def footnote_ref(number)
+        "@<fn>{#{number}}"
+      end
+      def footnotes(text)
+        "#{text}"
+      end
+
+      def footnote_def(text,number)
+        "\n//footnote[#{number}][#{escape_inline(text).strip}]\n"
       end
 
     end
