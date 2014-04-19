@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = MD2ReVIEW::VERSION
   gem.authors       = ["takahashim"]
   gem.email         = ["takahashimm@gmail.com"]
-  gem.description   = %q{a converter MD -> ReVIEW}
-  gem.summary       = %q{a converter MD -> ReVIEW}
+  gem.description   = %q{a converter from Markdown to Re:VIEW. It uses redcarpet.}
+  gem.summary       = %q{a converter from Markdown to Re:VIEW}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
