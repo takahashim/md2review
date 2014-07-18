@@ -131,7 +131,12 @@ module Redcarpet
         content.each_line do |item|
           case list_type
           when :ordered
-            ret << " 1. " << item
+            if item =~ /^ +(\d+\.) (.*)/
+              ## XXX not support yet in Re:VIEW
+              ret << " #{$1} #{$2.chomp}" << "\n"
+            else
+              ret << " 1. " << item
+            end
           when :unordered
             if item =~ /^ (\*+) (.*)/
               ret << " *#{$1} #{$2.chomp}" << "\n"
@@ -144,11 +149,12 @@ module Redcarpet
       end
 
       def list_item(content, list_type)
-        item = content.gsub(/\n(\s*[^* ])/){$1}.strip
         case list_type
         when :ordered
+          item = content.gsub(/\n(\s+[^0-9])/){$1}.gsub(/\n(\s+[0-9]+[^.])/){$1}.strip
           "#{item}\n"
         when :unordered
+          item = content.gsub(/\n(\s*[^* ])/){$1}.strip
           "#{item}\n"
         end
       end
