@@ -127,20 +127,29 @@ module Redcarpet
       end
 
       def list(content, list_type)
-        case list_type
-        when :ordered
-          "\n#{content}\n"
-        when :unordered
-          "\n#{content}\n"
+        ret = ""
+        content.each_line do |item|
+          case list_type
+          when :ordered
+            ret << " 1. " << item
+          when :unordered
+            if item =~ /^ (\*+) (.*)/
+              ret << " *#{$1} #{$2.chomp}" << "\n"
+            else
+              ret << " * " << item
+            end
+          end
         end
+        ret
       end
 
       def list_item(content, list_type)
+        item = content.gsub(/\n(\s*[^* ])/){$1}.strip
         case list_type
         when :ordered
-          " 1. #{content.strip}\n"
+          "#{item}\n"
         when :unordered
-          " * #{content.strip}\n"
+          "#{item}\n"
         end
       end
 
