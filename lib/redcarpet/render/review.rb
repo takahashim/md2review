@@ -95,7 +95,7 @@ module Redcarpet
 
       def image(link, title, alt_text)
         filename = File.basename(link,".*")
-        "//image[#{filename}][#{alt_text}]{\n//}"
+        "//image[#{filename}][#{alt_text}]{\n//}\n"
       end
 
       def autolink(link, link_type)
@@ -123,7 +123,7 @@ module Redcarpet
       end
 
       def paragraph(text)
-        "\n\n#{text}\n"
+        "\n\n#{text}\n\n"
       end
 
       def list(content, list_type)
