@@ -74,7 +74,7 @@ class ReVIEWTest < Test::Unit::TestCase
   end
 
   def test_footnote
-    rd = render_with({:footnotes=>true}, "これは脚注付き[^1]の段落です。\n\n\n[^1]: そして、これが脚注です。\n")
-    assert_equal %Q|\n\nこれは脚注付き@<fn>{1}の段落です。\n\n\n//footnote[1][そして、これが脚注です。]\n|, rd
+    rd = render_with({:footnotes=>true}, "これは*脚注*付き[^1]の段落です。\n\n\n[^1]: そして、これが脚注です。\n")
+    assert_equal %Q|\n\nこれは@<b>{脚注}付き@<fn>{1}の段落です。\n\n\n//footnote[1][そして、これが脚注です。]\n|, rd
   end
 end
