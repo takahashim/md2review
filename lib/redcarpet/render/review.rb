@@ -181,7 +181,7 @@ module Redcarpet
       end
 
       def footnote_def(text,number)
-        "\n//footnote[#{number}][#{escape_inline(text).strip}]\n"
+        "\n//footnote[#{number}][#{text.strip}]\n"
       end
 
     end

@@ -21,7 +21,7 @@ parse_extensions = {}
 parse_extensions[:tables] = true
 parse_extensions[:strikethrough] = true
 parse_extensions[:fenced_code_blocks] = true
-
+parse_extensions[:footnotes] = true
 
 renderer = Redcarpet::Render::ReVIEW
 
