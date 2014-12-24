@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["takahashimm@gmail.com"]
   gem.description   = %q{a converter from Markdown to Re:VIEW. It uses redcarpet.}
   gem.summary       = %q{a converter from Markdown to Re:VIEW}
-  gem.homepage      = ""
+  gem.homepage      = 'https://github.com/takahashim/md2review'
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
