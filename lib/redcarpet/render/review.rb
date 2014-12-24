@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 module Redcarpet
   module Render
     class ReVIEW < Base
@@ -7,9 +9,11 @@ module Redcarpet
         @table_num = 0
         @table_id_prefix = "tbl"
         @header_offset = 0
+        @link_as_footnote = render_extensions[:link_as_footnote]
         if render_extensions[:header_offset]
           @header_offset = render_extensions[:header_offset]
         end
+        @links = {}
       end
 
       def normal_text(text)
@@ -103,7 +107,13 @@ module Redcarpet
       end
 
       def link(link, title, content)
-        "@<href>{#{escape_href(link)},#{escape_inline(content)}}"
+        if @link_as_footnote
+          key = Digest::MD5.hexdigest(link)
+          @links[key] = link unless @links.key?(key)
+          footnotes(content) + footnote_ref(key)
+        else
+          "@<href>{#{escape_href(link)},#{escape_inline(content)}}"
+        end
       end
 
       def double_emphasis(text)
@@ -176,6 +186,7 @@ module Redcarpet
       def footnote_ref(number)
         "@<fn>{#{number}}"
       end
+
       def footnotes(text)
         "#{text}"
       end
@@ -184,6 +195,9 @@ module Redcarpet
         "\n//footnote[#{number}][#{text.strip}]\n"
       end
 
+      def postprocess(text)
+        text + @links.map { |key, link| footnote_def(link, key) }.join
+      end
     end
   end
 end
