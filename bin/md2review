@@ -17,7 +17,7 @@ require 'redcarpet'
 require 'redcarpet/render/review'
 
 render_extensions = {}
-render_extensions[:link_as_footnote] = false
+render_extensions[:link_in_footnote] = false
 parse_extensions = {}
 parse_extensions[:tables] = true
 parse_extensions[:strikethrough] = true
