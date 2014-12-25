@@ -9,7 +9,7 @@ module Redcarpet
         @table_num = 0
         @table_id_prefix = "tbl"
         @header_offset = 0
-        @link_as_footnote = render_extensions[:link_as_footnote]
+        @link_in_footnote = render_extensions[:link_in_footnote]
         if render_extensions[:header_offset]
           @header_offset = render_extensions[:header_offset]
         end
@@ -107,9 +107,9 @@ module Redcarpet
       end
 
       def link(link, title, content)
-        if @link_as_footnote
+        if @link_in_footnote
           key = Digest::MD5.hexdigest(link)
-          @links[key] = link unless @links.key?(key)
+          @links[key] ||= link
           footnotes(content) + footnote_ref(key)
         else
           "@<href>{#{escape_href(link)},#{escape_inline(content)}}"
