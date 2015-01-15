@@ -10,6 +10,7 @@ module Redcarpet
         @table_id_prefix = "tbl"
         @header_offset = 0
         @link_in_footnote = render_extensions[:link_in_footnote]
+        @image_caption = !render_extensions[:disable_image_caption]
         if render_extensions[:header_offset]
           @header_offset = render_extensions[:header_offset]
         end
@@ -105,7 +106,11 @@ module Redcarpet
 
       def image(link, title, alt_text)
         filename = File.basename(link,".*")
-        "//image[#{filename}][#{alt_text}]{\n//}\n"
+        if @image_caption
+          "//image[#{filename}][#{alt_text}]{\n//}\n"
+        else
+          "//indepimage[#{filename}]\n"
+        end
       end
 
       def autolink(link, link_type)
