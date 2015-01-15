@@ -170,6 +170,9 @@ module Redcarpet
       end
 
       def list_item(content, list_type)
+        content.gsub!(%r<\n//(image|indepimage)\[([^\]]*?)\][^\{]*({\n//})?\n>){
+          "@<icon>{"+$2+"}\n"
+        }
         case list_type
         when :ordered
           item = content.gsub(/\n(\s+[^0-9])/){$1}.gsub(/\n(\s+[0-9]+[^.])/){$1}.strip
