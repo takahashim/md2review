@@ -73,6 +73,12 @@ module Redcarpet
           "\n=== #{title}\n"
         when 4
           "\n==== #{title}\n"
+        when 5
+          "\n===== #{title}\n"
+        when 6
+          "\n====== #{title}\n"
+        else
+          raise "too long header"
         end
       end
 
