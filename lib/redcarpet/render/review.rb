@@ -22,11 +22,11 @@ module Redcarpet
       end
 
       def escape_inline(text)
-        text.gsub(/\}/){'\\}'}
+        text.gsub(/\}/){ '\\}' }
       end
 
       def escape_href(text)
-        text.to_s.gsub(/,/){'\\,'}
+        text.to_s.gsub(/,/){ '\\,' }
       end
 
       def block_code(code, language)
@@ -45,7 +45,7 @@ module Redcarpet
 
       def block_quote(quote)
         quote_text = normal_text(quote).chomp
-        quote_text.gsub!(/\A\n\n/,'')
+        quote_text.gsub!(/\A\n\n/, '')
         "\n//quote{\n#{quote_text}\n//}\n"
       end
 
@@ -105,7 +105,7 @@ module Redcarpet
       end
 
       def image(link, title, alt_text)
-        filename = File.basename(link,".*")
+        filename = File.basename(link, ".*")
         if @image_caption
           "//image[#{filename}][#{alt_text}]{\n//}\n"
         else
@@ -177,17 +177,17 @@ module Redcarpet
         }
         case list_type
         when :ordered
-          item = content.gsub(/\n(\s+[^0-9])/){$1}.gsub(/\n(\s+[0-9]+[^.])/){$1}.strip
+          item = content.gsub(/\n(\s+[^0-9])/){ $1 }.gsub(/\n(\s+[0-9]+[^.])/){ $1 }.strip
           "#{item}\n"
         when :unordered
-          item = content.gsub(/\n(\s*[^* ])/){$1}.strip
+          item = content.gsub(/\n(\s*[^* ])/){ $1 }.strip
           "#{item}\n"
         else
           raise "invalid type: #{list_type}"
         end
       end
 
-      def table_id()
+      def table_id
         @table_num += 1
         "#{@table_id_prefix}#{@table_num}"
       end
@@ -209,7 +209,7 @@ module Redcarpet
         "#{text}"
       end
 
-      def footnote_def(text,number)
+      def footnote_def(text, number)
         "\n//footnote[#{number}][#{text.strip}]\n"
       end
 
