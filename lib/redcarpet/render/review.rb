@@ -164,6 +164,8 @@ module Redcarpet
             else
               ret << " * " << item
             end
+          else
+            raise "invalid type: #{list_type}"
           end
         end
         ret
@@ -180,6 +182,8 @@ module Redcarpet
         when :unordered
           item = content.gsub(/\n(\s*[^* ])/){$1}.strip
           "#{item}\n"
+        else
+          raise "invalid type: #{list_type}"
         end
       end
 
