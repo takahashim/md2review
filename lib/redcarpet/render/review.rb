@@ -64,23 +64,29 @@ module Redcarpet
       end
 
       def header(title, level, anchor="")
+        buf = ""
+        if /\s*(\{.*?\})\s*$/ =~ title
+          buf << "\n#@# header_attribute: #{$1}"
+          title = $`
+        end
         l = level - @header_offset
         case l
         when 1
-          "\n= #{title}\n"
+          buf << "\n= #{title}\n"
         when 2
-          "\n== #{title}\n"
+          buf << "\n== #{title}\n"
         when 3
-          "\n=== #{title}\n"
+          buf << "\n=== #{title}\n"
         when 4
-          "\n==== #{title}\n"
+          buf << "\n==== #{title}\n"
         when 5
-          "\n===== #{title}\n"
+          buf << "\n===== #{title}\n"
         when 6
-          "\n====== #{title}\n"
+          buf << "\n====== #{title}\n"
         else
           raise "too long header"
         end
+        buf
       end
 
       def table(header, body)
