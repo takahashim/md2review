@@ -107,6 +107,15 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal %Q[\n//emlist[][ruby]{\ndef foo\n  p "test"\nend\n//}\n], rd
   end
 
+  def test_code_fence_with_console
+    rd = render_with({:fenced_code_blocks => true}, %Q[~~~console\ndef foo\n  p "test"\nend\n~~~\n])
+    assert_equal %Q[\n//emlist[][console]{\ndef foo\n  p "test"\nend\n//}\n], rd
+    rd = render_with({:fenced_code_blocks => true},
+                      %Q[~~~console\ndef foo\n  p "test"\nend\n~~~\n],
+                     {:enable_cmd => true})
+    assert_equal %Q[\n//cmd{\ndef foo\n  p "test"\nend\n//}\n], rd
+  end
+
   def test_group_ruby
     rd = render_with({:ruby => true}, "{電子出版|でんししゅっぱん}を手軽に\n")
     assert_equal %Q[\n\n@<ruby>{電子出版,でんししゅっぱん}を手軽に\n\n], rd

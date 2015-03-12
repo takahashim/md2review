@@ -15,6 +15,7 @@ module Redcarpet
           @header_offset = render_extensions[:header_offset]
         end
         @links = {}
+        @cmd = render_extensions[:enable_cmd]
       end
 
       def normal_text(text)
@@ -40,7 +41,12 @@ module Redcarpet
             caption = "[][#{language}]"
           end
         end
-        "\n//emlist#{caption}{\n#{code_text}\n//}\n"
+
+        if @cmd && (language == "shell-session" || language == "console")
+          "\n//cmd{\n#{code_text}\n//}\n"
+        else
+          "\n//emlist#{caption}{\n#{code_text}\n//}\n"
+        end
       end
 
       def block_quote(quote)
