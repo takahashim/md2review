@@ -25,6 +25,18 @@ You can use the commmand md2review as:
 
     $ md2review your-document.md > your-document.re
 
+## History
+
+* 1.4.0
+    * fix handling empty cell in //table
+    * support header attributes in PHP Markdown Extra
+* 1.3.0
+    * allow images in list items (with @<icon>)
+    * add option --disable-image-caption
+    * allow 6th header level
+    * add option --render-link-in-footnote (by @masarakki)
+    * support inline markup in footnote (by @hamano)
+
 ## Contributing
 
 1. Fork it
