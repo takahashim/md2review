@@ -107,6 +107,11 @@ module Redcarpet
       def table_cell(content, alignment)
         sep = @sep
         @sep = "\t"
+        if content == ""
+          content = "."
+        elsif content =~ /\A\./
+          content = "." + content
+        end
         "#{sep}#{content}"
       end
 

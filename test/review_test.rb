@@ -87,6 +87,11 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal " 1. aaa@<br>{}@<icon>{foo}\n 1. bbb\n 1. ccc\n", @markdown.render("1. aaa  \n    ![test](foo.jpg)\n2. bbb\n3. ccc\n")
   end
 
+  def test_table_with_empty_cell
+    rd = render_with({:tables => true}, %Q[\n\n| a  |  b |  c |\n|----|----|----|\n| A  | B  | C  |\n|    | B  |  C |\n| .A | B  |  C |\n\n])
+    assert_equal "//table[tbl1][]{\na\tb\tc\n-----------------\nA\tB\tC\n.\tB\tC\n..A\tB\tC\n//}\n", rd
+  end
+
   def test_code_fence_with_caption
     rd = render_with({:fenced_code_blocks => true}, %Q[~~~ {caption="test"}\ndef foo\n  p "test"\nend\n~~~\n])
     assert_equal %Q[\n//emlist[test]{\ndef foo\n  p "test"\nend\n//}\n], rd
