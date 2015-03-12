@@ -27,6 +27,9 @@ You can use the commmand md2review as:
 
 ## History
 
+* 1.5.0
+    * support language on code block
+    * add option --render-enable-cmd
 * 1.4.0
     * fix handling empty cell in //table
     * support header attributes in PHP Markdown Extra
