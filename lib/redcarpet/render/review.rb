@@ -37,10 +37,10 @@ module Redcarpet
           if language =~ /caption=\"(.*)\"/
             caption = "["+$1+"]"
           else
-            lang = "#\@# lang: #{language}\n"
+            caption = "[][#{language}]"
           end
         end
-        "\n#{lang}//emlist#{caption}{\n#{code_text}\n//}\n"
+        "\n//emlist#{caption}{\n#{code_text}\n//}\n"
       end
 
       def block_quote(quote)
