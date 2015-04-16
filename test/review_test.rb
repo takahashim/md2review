@@ -57,6 +57,12 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n\#@# header_attribute: {-}\n= AAA\n\n\#@# header_attribute: {\#foo .bar title=hoge}\n= BBB\n", @markdown.render("\#AAA  {-}\n\n\#BBB {\#foo .bar title=hoge}\n\n")
   end
 
+  def test_header_attributes_without_space
+    assert_respond_to @markdown, :render
+    assert_equal "\n\#@# header_attribute: {-}\n= AAA\n\n\= BBB@<tt>{test}\n",
+                 @markdown.render("\#AAA  {-}\n\n\#BBB@<tt>{test}\n\n")
+  end
+
   def test_image
     assert_equal "\n\n//image[image][test]{\n//}\n\n\n", @markdown.render("![test](path/to/image.jpg)\n")
   end

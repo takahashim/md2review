@@ -71,7 +71,7 @@ module Redcarpet
 
       def header(title, level, anchor="")
         buf = ""
-        if /\s*(\{.*?\})\s*$/ =~ title
+        if /\s+(\{.*?\})\s*$/ =~ title
           buf << "\n#@# header_attribute: #{$1}"
           title = $`
         end
