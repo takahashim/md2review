@@ -27,6 +27,9 @@ You can use the commmand md2review as:
 
 ## History
 
+* 1.6.0
+    * special attribute in header need a separator(U+0020) to distinguish from Re:VIEW inline markup
+      (reported by @himajin315 and @yasulab)
 * 1.5.0
     * support language on code block
     * add option --render-enable-cmd
