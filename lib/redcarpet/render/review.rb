@@ -140,7 +140,8 @@ module Redcarpet
           @links[key] ||= link
           footnotes(content) + footnote_ref(key)
         else
-          "@<href>{#{escape_href(link)},#{escape_inline(content)}}"
+          content = escape_inline(remove_inline_markups(content))
+          "@<href>{#{escape_href(link)},#{content}}"
         end
       end
 
@@ -232,6 +233,10 @@ module Redcarpet
 
       def postprocess(text)
         text + @links.map { |key, link| footnote_def(link, key) }.join
+      end
+
+      def remove_inline_markups(text)
+        text.gsub(/@<(?:b|strong|tt)>{([^}]*)}/, '\1')
       end
     end
   end
