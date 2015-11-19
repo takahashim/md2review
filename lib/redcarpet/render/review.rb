@@ -150,7 +150,7 @@ module Redcarpet
       end
 
       def emphasis(text)
-        "@<b>{#{escape_inline(text)}}"
+        sandwitch_link('b', text)
       end
 
       def strikethrough(text)
@@ -237,6 +237,16 @@ module Redcarpet
 
       def remove_inline_markups(text)
         text.gsub(/@<(?:b|strong|tt)>{([^}]*)}/, '\1')
+      end
+
+      def sandwitch_link(op, text)
+        head, match, tail = text.partition(/@<href>{(?:\\,|[^}])*}/)
+
+        if match.empty? && tail.empty?
+          return "@<#{op}>{#{escape_inline(text)}}"
+        end
+
+        sandwitch_link(op, head) + match + sandwitch_link(op, tail)
       end
     end
   end
