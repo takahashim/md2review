@@ -42,6 +42,11 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal %Q|\n\naaa foo@<fn>{3ccd7167b80081c737b749ad1c27dcdc}, bar@<fn>{9dcab303478e38d32d83ae19daaea9f6}, foo2@<fn>{3ccd7167b80081c737b749ad1c27dcdc}\n\n\n//footnote[3ccd7167b80081c737b749ad1c27dcdc][http://example.jp/foo]\n\n//footnote[9dcab303478e38d32d83ae19daaea9f6][http://example.jp/bar]\n|, rd
   end
 
+  def test_emphasis_with_href
+    assert_respond_to @markdown, :render
+    assert_equal "\n\n@<b>{{hello\\} }@<href>{http://exmaple.com/foo\\,bar,example}@<b>{ world}\n\n", @markdown.render("*{hello} [example](http://exmaple.com/foo,bar) world*")
+  end
+
   def test_header
     assert_respond_to @markdown, :render
     assert_equal "\n= AAA\n\n\nBBB\n\n\n== ccc\n\n\nddd\n\n", @markdown.render("#AAA\nBBB\n\n##ccc\n\nddd\n")
