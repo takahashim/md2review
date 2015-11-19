@@ -54,6 +54,11 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n\n@<href>{http://exmaple.com/,example}\n\n", @markdown.render("[`example`](http://exmaple.com/)")
   end
 
+  def test_emphasis_with_href
+    assert_respond_to @markdown, :render
+    assert_equal "\n\n@<b>{{hello\\} }@<href>{http://exmaple.com/foo\\,bar,example}@<b>{ world}\n\n", @markdown.render("*{hello} [example](http://exmaple.com/foo,bar) world*")
+  end
+
   def test_header
     assert_respond_to @markdown, :render
     assert_equal "\n= AAA\n\n\nBBB\n\n\n== ccc\n\n\nddd\n\n", @markdown.render("#AAA\nBBB\n\n##ccc\n\nddd\n")
