@@ -67,6 +67,10 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n\n//image[image][test]{\n//}\n\n\n", @markdown.render("![test](path/to/image.jpg)\n")
   end
 
+  def test_indented_image
+    assert_equal "\n\n//image[image][test]{\n//}\n\n\n", @markdown.render(" ![test](path/to/image.jpg)\n")
+  end
+
   def test_indepimage
     rev = render_with({}, "![test](path/to/image.jpg)\n",{:disable_image_caption => true})
     assert_equal "\n\n//indepimage[image]\n\n\n", rev

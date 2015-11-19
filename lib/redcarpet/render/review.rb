@@ -231,6 +231,7 @@ module Redcarpet
       end
 
       def postprocess(text)
+        text = text.gsub(%r|^[ \t]+(//image\[[^\]]+\]\[[^\]]+\]{$\n^//})|, '\1')
         text + @links.map { |key, link| footnote_def(link, key) }.join
       end
     end
