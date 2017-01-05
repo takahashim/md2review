@@ -3,6 +3,9 @@
 # Convert one or more Markdown files to ReVIEW and write to standard output. With
 # no <file> or when <file> is '-', read Markdown source text from standard input.
 # With <extension>s, perform additional Markdown processing before writing output.
+
+require 'md2review'
+
 if ARGV.include?('--help')
   File.read(__FILE__).split("\n").grep(/^# /).each do |line|
     puts line[2..-1]
@@ -42,8 +45,7 @@ ARGV.delete_if do |arg|
   end
 end
 
-render = renderer.new(render_extensions)
-md = Redcarpet::Markdown.new(render, parse_extensions)
+md = MD2ReVIEW::Markdown.new(render_extensions, parse_extensions)
 md_doc = ARGF.read
 review_doc = md.render(md_doc)
 STDOUT.write review_doc

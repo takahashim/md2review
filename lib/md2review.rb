@@ -1,7 +1,4 @@
-require "redcarpet-review/version"
+require 'md2review/markdown'
 
-module Redcarpet
-  module Review
-    # Your code goes here...
-  end
+module MD2ReVIEW
 end

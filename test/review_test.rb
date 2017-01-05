@@ -1,4 +1,4 @@
-# coding: UTF-8
+# coding: utf-8
 rootdir = File.dirname(File.dirname(__FILE__))
 $LOAD_PATH.unshift "#{rootdir}/lib"
 
@@ -7,18 +7,17 @@ if defined? Encoding
 end
 
 require 'test/unit'
-require 'redcarpet'
-require 'redcarpet/render/review'
+require 'md2review'
+require 'md2review/markdown'
 
 class ReVIEWTest < Test::Unit::TestCase
 
   def setup
-    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::ReVIEW.new({}))
+    @markdown = MD2ReVIEW::Markdown.new({},{})
   end
 
   def render_with(flags, text, render_flags = {})
-    renderer = Redcarpet::Render::ReVIEW.new(render_flags)
-    Redcarpet::Markdown.new(renderer, flags).render(text)
+    MD2ReVIEW::Markdown.new(render_flags, flags).render(text)
   end
 
   def test_that_simple_one_liner_goes_to_review
@@ -38,7 +37,7 @@ class ReVIEWTest < Test::Unit::TestCase
 
   def test_href_in_footnote
     text = %Q[aaa [foo](http://example.jp/foo), [bar](http://example.jp/bar), [foo2](http://example.jp/foo)]
-    rd = Redcarpet::Markdown.new(Redcarpet::Render::ReVIEW.new({:link_in_footnote => true})).render(text)
+    rd = MD2ReVIEW::Markdown.new({:link_in_footnote => true},{}).render(text)
     assert_equal %Q|\n\naaa foo@<fn>{3ccd7167b80081c737b749ad1c27dcdc}, bar@<fn>{9dcab303478e38d32d83ae19daaea9f6}, foo2@<fn>{3ccd7167b80081c737b749ad1c27dcdc}\n\n\n//footnote[3ccd7167b80081c737b749ad1c27dcdc][http://example.jp/foo]\n\n//footnote[9dcab303478e38d32d83ae19daaea9f6][http://example.jp/bar]\n|, rd
   end
 
