@@ -174,6 +174,36 @@ EOB
     assert_equal %Q[\n\n昭和@<tcy>{53}年\n\n], rd
   end
 
+  def test_math
+    rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{:math => true})
+    assert_equal %Q[\n\nその結果、@<m>{y=ax^2+bx+c}の式が得られます。\n\n], rd
+  end
+
+  def test_no_math
+    rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{:math => false})
+    assert_equal %Q[\n\nその結果、$$y=ax^2+bx+c$$の式が得られます。\n\n], rd
+  end
+
+  def test_math_block
+    rd = render_with({:fenced_code_blocks => true}, <<-EOB,{:math => true})
+求める式は以下のようになります。
+
+```math
+\frac{n!}{k!(n-k)!} = \binom{n}{k}
+```
+EOB
+    assert_equal <<-EOB, rd
+
+
+求める式は以下のようになります。
+
+
+//texequation{
+\frac{n!}{k!(n-k)!} = \binom{n}{k}
+//}
+EOB
+  end
+
   def test_footnote
     rd = render_with({:footnotes=>true}, "これは*脚注*付き[^1]の段落です。\n\n\n[^1]: そして、これが脚注です。\n")
     assert_equal %Q|\n\nこれは@<b>{脚注}付き@<fn>{1}の段落です。\n\n\n//footnote[1][そして、これが脚注です。]\n|, rd

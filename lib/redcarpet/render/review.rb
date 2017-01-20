@@ -18,9 +18,16 @@ module Redcarpet
         @cmd = render_extensions[:enable_cmd]
         @support_table_caption = render_extensions[:table_caption]
         @table_caption = nil
+        @math = render_extensions[:math]
       end
 
       def normal_text(text)
+        if @math
+          pat = %r|\$\$(.*?)\$\$|
+          while text =~ pat
+            text.sub!(pat){ "@<m>{" + $1.gsub(/}/,"\\}") + "}" }
+          end
+        end
         text
       end
 
@@ -46,6 +53,8 @@ module Redcarpet
 
         if @cmd && (language == "shell-session" || language == "console")
           "\n//cmd{\n#{code_text}\n//}\n"
+        elsif @math && language == "math"
+          "\n//texequation{\n#{code.chomp}\n//}\n"
         else
           "\n//emlist#{caption}{\n#{code_text}\n//}\n"
         end
