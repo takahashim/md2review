@@ -16,6 +16,8 @@ module Redcarpet
         end
         @links = {}
         @cmd = render_extensions[:enable_cmd]
+        @support_table_caption = render_extensions[:table_caption]
+        @table_caption = nil
       end
 
       def normal_text(text)
@@ -102,7 +104,12 @@ module Redcarpet
           header_text = "#{header}-----------------\n"
         end
         body.chomp!
-        "//table[#{table_id()}][]{\n#{header_text}#{body}\n//}\n"
+        caption = nil
+        if @table_caption
+          caption = @table_caption.strip
+          @table_caption = nil
+        end
+        "//table[#{table_id()}][#{caption}]{\n#{header_text}#{body}\n//}\n"
       end
 
       def table_row(content)
@@ -162,7 +169,12 @@ module Redcarpet
       end
 
       def paragraph(text)
-        "\n\n#{text}\n\n"
+        if @support_table_caption && text =~ /\ATable:(.*)\z/
+          @table_caption = $1  ## and no output line
+          ""
+        else
+          "\n\n#{text}\n\n"
+        end
       end
 
       def list(content, list_type)

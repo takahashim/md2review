@@ -118,6 +118,28 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "//table[tbl1][]{\na\tb\tc\n-----------------\nA\tB\tC\n.\tB\tC\n..A\tB\tC\n//}\n", rd
   end
 
+  def test_table_with_caption
+    rd = render_with({:tables => true}, <<-EOB, {:table_caption => true})
+
+Table: caption test
+
+| a  |  b |  c |
+|----|----|----|
+| A  | B  | C  |
+|    | B  |  C |
+| .A | B  |  C |
+    EOB
+    assert_equal <<-EOB, rd
+//table[tbl1][caption test]{
+a\tb\tc
+-----------------
+A\tB\tC
+.\tB\tC
+..A\tB\tC
+//}
+EOB
+  end
+
   def test_code_fence_with_caption
     rd = render_with({:fenced_code_blocks => true}, %Q[~~~ {caption="test"}\ndef foo\n  p "test"\nend\n~~~\n])
     assert_equal %Q[\n//emlist[test]{\ndef foo\n  p "test"\nend\n//}\n], rd
