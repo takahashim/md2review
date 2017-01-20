@@ -22,12 +22,6 @@ module Redcarpet
       end
 
       def normal_text(text)
-        if @math
-          pat = %r|\$\$(.*?)\$\$|
-          while text =~ pat
-            text.sub!(pat){ "@<m>{" + $1.gsub(/}/,"\\}") + "}" }
-          end
-        end
         text
       end
 
@@ -254,6 +248,11 @@ module Redcarpet
 
       def postprocess(text)
         text = text.gsub(%r|^[ \t]+(//image\[[^\]]+\]\[[^\]]+\]{$\n^//})|, '\1')
+        if @math
+          while %r|\$\$(.+?)\$\$| =~ text
+            text.sub!(%r|\$\$(.+?)\$\$|){ "@<m>{" + $1.gsub(/}/, "\\}") + "}" }
+          end
+        end
         text + @links.map { |key, link| footnote_def(link, key) }.join
       end
 
