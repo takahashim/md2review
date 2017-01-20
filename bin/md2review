@@ -5,6 +5,7 @@
 # With <extension>s, perform additional Markdown processing before writing output.
 
 require 'md2review'
+require 'md2review/version'
 
 if ARGV.include?('--help')
   File.read(__FILE__).split("\n").grep(/^# /).each do |line|
@@ -40,6 +41,9 @@ ARGV.delete_if do |arg|
   elsif arg =~ /^--parse-([\w-]+)$/
     arg = $1.gsub('-', '_')
     parse_extensions[arg.to_sym] = true
+  elsif arg =~ /^--version$/
+    print MD2ReVIEW::VERSION, "\n"
+    exit
   else
     false
   end
