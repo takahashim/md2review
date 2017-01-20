@@ -27,6 +27,10 @@ You can use the commmand md2review as:
 
 ## History
 
+* 1.8.0
+    * add: option --version
+    * add: option --render-math to support `@<m>{...}` and `//texequation{\n...\n}\n`
+    * add: option --render-table-caption to support `Table: caption`
 * 1.7.0
     * fix: when href in emphasis (@hanachin)
     * fix: spaces before image block (@hanachin)
