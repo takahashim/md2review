@@ -2,7 +2,7 @@
 
 [![Build Status](https://api.travis-ci.org/takahashim/md2review.png)](https://travis-ci.org/takahashim/md2review)
 
-md2review is a converter from Markdown into ReVIEW.
+md2review is a CLI tool to convert from Markdown into Re:VIEW (http://reviewml.org/ ).
 This command uses Redcarpet gem to parse markdown.
 
 ## Installation
