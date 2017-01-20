@@ -19,6 +19,21 @@ module Redcarpet
         @support_table_caption = render_extensions[:table_caption]
         @table_caption = nil
         @math = render_extensions[:math]
+        @math_buf = []
+      end
+
+      def preprocess(text)
+        counter = -1
+        if @math
+          while %r|\$\$(.+?)\$\$| =~ text
+            text.sub!(%r|\$\$(.+?)\$\$|) do
+              counter += 1
+              @math_buf[counter] = $1
+              "〓MATH:#{counter}:〓"
+            end
+          end
+        end
+        text
       end
 
       def normal_text(text)
@@ -249,8 +264,8 @@ module Redcarpet
       def postprocess(text)
         text = text.gsub(%r|^[ \t]+(//image\[[^\]]+\]\[[^\]]+\]{$\n^//})|, '\1')
         if @math
-          while %r|\$\$(.+?)\$\$| =~ text
-            text.sub!(%r|\$\$(.+?)\$\$|){ "@<m>{" + $1.gsub(/}/, "\\}") + "}" }
+          while %r|〓MATH:(\d+):〓| =~ text
+            text.sub!(%r|〓MATH:(\d+):〓|){ "@<m>{" + @math_buf[$1.to_i].gsub(/}/, "\\}") + "}" }
           end
         end
         text + @links.map { |key, link| footnote_def(link, key) }.join

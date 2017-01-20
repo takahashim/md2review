@@ -179,6 +179,11 @@ EOB
     assert_equal %Q[\n\nその結果、@<m>{y=ax^2+bx+c}の式が得られます。\n\n], rd
   end
 
+  def test_multi_math
+    rd = render_with({}, "その結果、$$y=a_2x^2+b_2x+c_2$$の式が得られます。$$a_2$$は2次の係数、$$b_2$$は1次の係数、$$c_2$$は定数です。",{:math => true})
+    assert_equal %Q[\n\nその結果、@<m>{y=a_2x^2+b_2x+c_2}の式が得られます。@<m>{a_2}は2次の係数、@<m>{b_2}は1次の係数、@<m>{c_2}は定数です。\n\n], rd
+  end
+
   def test_no_math
     rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{:math => false})
     assert_equal %Q[\n\nその結果、$$y=ax^2+bx+c$$の式が得られます。\n\n], rd
