@@ -231,4 +231,20 @@ EOB
     rd = render_with({:footnotes=>true}, "これは*脚注*付き[^1]の段落です。\n\n\n[^1]: そして、これが脚注です。\n")
     assert_equal %Q|\n\nこれは@<b>{脚注}付き@<fn>{1}の段落です。\n\n\n//footnote[1][そして、これが脚注です。]\n|, rd
   end
+
+  def test_autolink
+    rd = render_with({:autolink => true}, "リンクの[テスト](http://example.jp/test)です。\nhttp://example.jp/test2/\n")
+    assert_equal %Q[\n\nリンクの@<href>{http://example.jp/test,テスト}です。\n@<href>{http://example.jp/test2/}\n\n], rd
+  end
+
+  def test_no_autolink
+    rd = render_with({}, "リンクの[テスト](http://example.jp/test)です。\nhttp://example.jp/test2/\n")
+    assert_equal %Q[\n\nリンクの@<href>{http://example.jp/test,テスト}です。\nhttp://example.jp/test2/\n\n], rd
+  end
+
+  def test_intra_emphasis
+    rd = render_with({:no_intra_emphasis => true}, "test__です。 _テスト_です_。")
+    assert_equal %Q[\n\ntest__です。 @<b>{テスト_です}。\n\n], rd
+  end
+
 end
