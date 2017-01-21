@@ -242,9 +242,4 @@ EOB
     assert_equal %Q[\n\nリンクの@<href>{http://example.jp/test,テスト}です。\nhttp://example.jp/test2/\n\n], rd
   end
 
-  def test_intra_emphasis
-    rd = render_with({:no_intra_emphasis => true}, "test__です。 _テスト_です_。")
-    assert_equal %Q[\n\ntest__です。 @<b>{テスト_です}。\n\n], rd
-  end
-
 end
