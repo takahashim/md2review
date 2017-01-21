@@ -184,6 +184,24 @@ EOB
     assert_equal %Q[\n\nその結果、@<m>{y=a_2x^2+b_2x+c_2}の式が得られます。@<m>{a_2}は2次の係数、@<m>{b_2}は1次の係数、@<m>{c_2}は定数です。\n\n], rd
   end
 
+  def test_math2
+    rd = render_with({}, <<-'EOB',{:math => true})
+$$X = \{ {x_1}, \cdots ,{x_n} \}$$、$$m$$、$${\mu _X}$$、$$\sigma _X^2$$、$$\{ {\hat x_1}, \cdots ,{\hat x_n} \}$$
+
+$$\mathbf{W} = ({w_1}, \cdots ,{w_n})$$、$$\sqrt {w_1^2 + \cdots  + w_n^2} $$、$$\left| {w_1^{}} \right| + \left| {w_2^{}} \right| +  \cdots  + \left| {w_n^{}} \right|$$。
+EOB
+    assert_equal <<-'EOB', rd
+
+
+@<m>{X = \{ {x_1\}, \cdots ,{x_n\} \\\}}、@<m>{m}、@<m>{{\mu _X\}}、@<m>{\sigma _X^2}、@<m>{\{ {\hat x_1\}, \cdots ,{\hat x_n\} \\\}}
+
+
+
+@<m>{\mathbf{W\} = ({w_1\}, \cdots ,{w_n\})}、@<m>{\sqrt {w_1^2 + \cdots  + w_n^2\} }、@<m>{\left| {w_1^{\}\} \right| + \left| {w_2^{\}\} \right| +  \cdots  + \left| {w_n^{\}\} \right|}。
+
+EOB
+  end
+
   def test_no_math
     rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{:math => false})
     assert_equal %Q[\n\nその結果、$$y=ax^2+bx+c$$の式が得られます。\n\n], rd

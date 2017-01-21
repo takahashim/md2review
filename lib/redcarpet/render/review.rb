@@ -41,7 +41,19 @@ module Redcarpet
       end
 
       def escape_inline(text)
-        text.gsub(/\}/){ '\\}' }
+        ## }  -> \}
+        ## \} -> \\\}
+        ## .}  -> .\}
+        text.gsub(/(.)?}/) do
+          if $1 == '\\'
+            replaced = '\\\\\\}'
+          elsif $1
+            replaced = $1 + '\\}'
+          else
+            replaced = '\\}'
+          end
+          replaced
+        end
       end
 
       def escape_href(text)
@@ -265,7 +277,7 @@ module Redcarpet
         text = text.gsub(%r|^[ \t]+(//image\[[^\]]+\]\[[^\]]+\]{$\n^//})|, '\1')
         if @math
           while %r|〓MATH:(\d+):〓| =~ text
-            text.sub!(%r|〓MATH:(\d+):〓|){ "@<m>{" + @math_buf[$1.to_i].gsub(/}/, "\\}") + "}" }
+            text.sub!(%r|〓MATH:(\d+):〓|){ "@<m>{" + escape_inline(@math_buf[$1.to_i]) + "}" }
           end
         end
         text + @links.map { |key, link| footnote_def(link, key) }.join
