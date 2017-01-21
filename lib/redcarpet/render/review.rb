@@ -19,6 +19,21 @@ module Redcarpet
         @support_table_caption = render_extensions[:table_caption]
         @table_caption = nil
         @math = render_extensions[:math]
+        @math_buf = []
+      end
+
+      def preprocess(text)
+        counter = -1
+        if @math
+          while %r|\$\$(.+?)\$\$| =~ text
+            text.sub!(%r|\$\$(.+?)\$\$|) do
+              counter += 1
+              @math_buf[counter] = $1
+              "〓MATH:#{counter}:〓"
+            end
+          end
+        end
+        text
       end
 
       def normal_text(text)
@@ -26,7 +41,19 @@ module Redcarpet
       end
 
       def escape_inline(text)
-        text.gsub(/\}/){ '\\}' }
+        ## }  -> \}
+        ## \} -> \\\}
+        ## .}  -> .\}
+        text.gsub(/(.)?}/) do
+          if $1 == '\\'
+            replaced = '\\\\\\}'
+          elsif $1
+            replaced = $1 + '\\}'
+          else
+            replaced = '\\}'
+          end
+          replaced
+        end
       end
 
       def escape_href(text)
@@ -249,8 +276,8 @@ module Redcarpet
       def postprocess(text)
         text = text.gsub(%r|^[ \t]+(//image\[[^\]]+\]\[[^\]]+\]{$\n^//})|, '\1')
         if @math
-          while %r|\$\$(.+?)\$\$| =~ text
-            text.sub!(%r|\$\$(.+?)\$\$|){ "@<m>{" + $1.gsub(/}/, "\\}") + "}" }
+          while %r|〓MATH:(\d+):〓| =~ text
+            text.sub!(%r|〓MATH:(\d+):〓|){ "@<m>{" + escape_inline(@math_buf[$1.to_i]) + "}" }
           end
         end
         text + @links.map { |key, link| footnote_def(link, key) }.join
