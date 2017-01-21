@@ -5,6 +5,26 @@
 md2review is a CLI tool to convert from Markdown into Re:VIEW (http://reviewml.org/ ).
 This command uses Redcarpet gem to parse markdown.
 
+## Usage
+
+You can use the commmand md2review as:
+
+    $ md2review [options] your-document.md > your-document.re
+
+### Options
+
+* `--version`: show version
+* `--help`: show help
+* `--render-header-offset = N`: use offset of header levels
+* `--render-disable-image-caption`: disable image caption; coverting into `//indepimage`
+* `--render-link-in-footnote`: enable links in footnote.
+* `--render-enable-cmd`: support `//cmd{...//}` for `shell-session` and `console` blocks
+* `--render-math`: support `@<m>{...}` and `//texequation{...}`
+* `--render-table-cation`: support table caption before table like `Table: some captions`
+* `--parse-no-intra-emphasis`: do not parse emphasis inside of words.
+* `--parse-autolink`: parse links even when they are not enclosed in `<>` characters.
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -18,12 +38,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install md2review
-
-## Usage
-
-You can use the commmand md2review as:
-
-    $ md2review your-document.md > your-document.re
 
 ## History
 
