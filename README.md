@@ -27,6 +27,8 @@ You can use the commmand md2review as:
 
 ## History
 
+* 1.9.0
+    * fix: fix math support for complex cases
 * 1.8.0
     * add: option --version
     * add: option --render-math to support `@<m>{...}` and `//texequation{\n...\n}\n`
