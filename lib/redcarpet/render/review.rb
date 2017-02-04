@@ -20,6 +20,7 @@ module Redcarpet
         @table_caption = nil
         @math = render_extensions[:math]
         @math_buf = []
+        @sep = nil
       end
 
       def preprocess(text)
