@@ -1,6 +1,7 @@
 # md2review
 
-[![Build Status](https://api.travis-ci.org/takahashim/md2review.png)](https://travis-ci.org/takahashim/md2review)
+[![Gem Version](https://badge.fury.io/rb/md2review.svg)](https://badge.fury.io/rb/md2review)
+[![Build Status](https://secure.travis-ci.org/takahashim/md2review.svg)](https://travis-ci.org/takahashim/md2review)
 
 md2review is a CLI tool to convert from Markdown into Re:VIEW (http://reviewml.org/ ).
 This command uses Redcarpet gem to parse markdown.
@@ -23,6 +24,7 @@ You can use the commmand md2review as:
 * `--render-table-cation`: support table caption before table like `Table: some captions`
 * `--parse-no-intra-emphasis`: do not parse emphasis inside of words.
 * `--parse-autolink`: parse links even when they are not enclosed in `<>` characters.
+* `--render-empty-image-caption`: use `//image` with caption and use `//indepimage` without caption
 
 
 ## Installation
@@ -40,6 +42,9 @@ Or install it yourself as:
     $ gem install md2review
 
 ## History
+
+### v1.11.0
+* add: option --empty-image-caption: switch to use `//image` or `//indepimage` with caption
 
 ### v1.10.0
 * add: option --image-table to support `//imgtable` with `![Table:foo](...)`
