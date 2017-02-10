@@ -93,24 +93,28 @@ class ReVIEWTest < Test::Unit::TestCase
   end
 
   def test_nested_ulist
-    assert_equal " * aaa\n ** bbb\n * ccc\n", @markdown.render("- aaa\n  - bbb\n- ccc\n")
+    assert_equal " * aaa\n ** bbb\n * ccc\n\n", @markdown.render("- aaa\n  - bbb\n- ccc\n")
   end
 
   def test_olist
-    assert_equal " 1. aaa\n 1. bbb\n 1. ccc\n", @markdown.render("1. aaa\n2. bbb\n3. ccc\n")
+    assert_equal " 1. aaa\n 1. bbb\n 1. ccc\n\n", @markdown.render("1. aaa\n2. bbb\n3. ccc\n")
   end
 
   def test_nested_olist
     ## XXX not support yet in Re:VIEW
-    assert_equal " 1. aaa\n 1. bbb\n 1. ccc\n", @markdown.render("1. aaa\n   2. bbb\n3. ccc\n")
+    assert_equal " 1. aaa\n 1. bbb\n 1. ccc\n\n", @markdown.render("1. aaa\n   2. bbb\n3. ccc\n")
   end
 
   def test_olist_image
-    assert_equal " 1. aaa@<icon>{foo}\n 1. bbb\n 1. ccc\n", @markdown.render("1. aaa\n    ![test](foo.jpg)\n2. bbb\n3. ccc\n")
+    assert_equal " 1. aaa@<icon>{foo}\n 1. bbb\n 1. ccc\n\n", @markdown.render("1. aaa\n    ![test](foo.jpg)\n2. bbb\n3. ccc\n")
   end
 
   def test_olist_image2
-    assert_equal " 1. aaa@<br>{}@<icon>{foo}\n 1. bbb\n 1. ccc\n", @markdown.render("1. aaa  \n    ![test](foo.jpg)\n2. bbb\n3. ccc\n")
+    assert_equal " 1. aaa@<br>{}@<icon>{foo}\n 1. bbb\n 1. ccc\n\n", @markdown.render("1. aaa  \n    ![test](foo.jpg)\n2. bbb\n3. ccc\n")
+  end
+
+  def test_olist_and_ulist
+    assert_equal " * ddd\n\n 1. aaa\n 1. bbb\n 1. ccc\n\n * eee\n\n", @markdown.render("* ddd\n\n1. aaa\n2. bbb\n3. ccc\n\n* eee\n")
   end
 
   def test_table_with_empty_cell
