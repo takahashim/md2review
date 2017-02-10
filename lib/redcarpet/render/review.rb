@@ -11,6 +11,12 @@ module Redcarpet
         @header_offset = 0
         @link_in_footnote = render_extensions[:link_in_footnote]
         @image_caption = !render_extensions[:disable_image_caption]
+        if render_extensions[:empty_image_caption]
+          @image_caption = false
+          @empty_image_caption = true
+        else
+          @empty_image_caption = false
+        end
         @image_table = render_extensions[:image_table]
         if render_extensions[:header_offset]
           @header_offset = render_extensions[:header_offset]
@@ -165,7 +171,7 @@ module Redcarpet
         if @image_table && alt_text =~ /\ATable:\s*(.*)/
           caption = $1
           "//imgtable[#{filename}][#{caption}]{\n//}\n"
-        elsif @image_caption
+        elsif @image_caption || (@empty_image_caption && alt_text.to_s.size > 0)
           "//image[#{filename}][#{alt_text}]{\n//}\n"
         else
           "//indepimage[#{filename}]\n"
