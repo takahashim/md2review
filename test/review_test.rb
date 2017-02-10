@@ -92,6 +92,11 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n\n//indepimage[image]\n\n\n", rev
   end
 
+  def test_image_table
+    rev = render_with({}, "![Table:test](path/to/image.jpg)\n",{:image_table => true})
+    assert_equal "\n\n//imgtable[image][test]{\n//}\n\n\n", rev
+  end
+
   def test_nested_ulist
     assert_equal " * aaa\n ** bbb\n * ccc\n\n", @markdown.render("- aaa\n  - bbb\n- ccc\n")
   end
