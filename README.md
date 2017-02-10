@@ -41,34 +41,42 @@ Or install it yourself as:
 
 ## History
 
-* 1.10.0
-    * add: option --image-table to support `//imgtable` with `![Table:foo](...)`
-    * fix: olist before/after ulist
-* 1.9.0
-    * fix: fix math support for complex cases
-* 1.8.0
-    * add: option --version
-    * add: option --render-math to support `@<m>{...}` and `//texequation{\n...\n}\n`
-    * add: option --render-table-caption to support `Table: caption`
-* 1.7.0
-    * fix: when href in emphasis (@hanachin)
-    * fix: spaces before image block (@hanachin)
-    * fix: remove inline markup in href content (@hanachin)
-* 1.6.0
-    * special attribute in header need a separator(U+0020) to distinguish from Re:VIEW inline markup
-      (reported by @himajin315 and @yasulab)
-* 1.5.0
-    * support language on code block
-    * add option --render-enable-cmd
-* 1.4.0
-    * fix handling empty cell in //table
-    * support header attributes in PHP Markdown Extra
-* 1.3.0
-    * allow images in list items (with @<icon>)
-    * add option --disable-image-caption
-    * allow 6th header level
-    * add option --render-link-in-footnote (by @masarakki)
-    * support inline markup in footnote (by @hamano)
+### v1.10.0
+* add: option --image-table to support `//imgtable` with `![Table:foo](...)`
+* fix: olist before/after ulist
+
+### v1.9.0
+* fix: fix math support for complex cases
+
+### v1.8.0
+* add: option --version
+* add: option --render-math to support `@<m>{...}` and `//texequation{\n...\n}\n`
+* add: option --render-table-caption to support `Table: caption`
+
+### v1.7.0
+* fix: when href in emphasis (@hanachin)
+* fix: spaces before image block (@hanachin)
+* fix: remove inline markup in href content (@hanachin)
+
+### v1.6.0
+* special attribute in header need a separator(U+0020) to distinguish from Re:VIEW inline markup
+  (reported by @himajin315 and @yasulab)
+
+### v1.5.0
+* support language on code block
+* add option --render-enable-cmd
+
+### v1.4.0
+* fix handling empty cell in `//table`
+* support header attributes in PHP Markdown Extra
+
+### v1.3.0
+* allow images in list items (with `@<icon>`)
+* add option --disable-image-caption
+* allow 6th header level
+* add option --render-link-in-footnote (by @masarakki)
+* support inline markup in footnote (by @hamano)
+
 
 ## Contributing
 
