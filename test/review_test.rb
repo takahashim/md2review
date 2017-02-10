@@ -92,6 +92,16 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n\n//indepimage[image]\n\n\n", rev
   end
 
+  def test_indepimage_empty
+    rev = render_with({}, "![](path/to/image.jpg)\n",{:empty_image_caption => true})
+    assert_equal "\n\n//indepimage[image]\n\n\n", rev
+  end
+
+  def test_indepimage_not_empty
+    rev = render_with({}, "![test](path/to/image.jpg)\n",{:empty_image_caption => true})
+    assert_equal "\n\n//image[image][test]{\n//}\n\n\n", rev
+  end
+
   def test_image_table
     rev = render_with({}, "![Table:test](path/to/image.jpg)\n",{:image_table => true})
     assert_equal "\n\n//imgtable[image][test]{\n//}\n\n\n", rev
