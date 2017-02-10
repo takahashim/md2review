@@ -229,6 +229,7 @@ module Redcarpet
             raise "invalid type: #{list_type}"
           end
         end
+        ret << "\n"
         ret
       end
 
