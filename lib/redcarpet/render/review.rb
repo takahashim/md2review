@@ -11,6 +11,7 @@ module Redcarpet
         @header_offset = 0
         @link_in_footnote = render_extensions[:link_in_footnote]
         @image_caption = !render_extensions[:disable_image_caption]
+        @image_table = render_extensions[:image_table]
         if render_extensions[:header_offset]
           @header_offset = render_extensions[:header_offset]
         end
@@ -161,7 +162,10 @@ module Redcarpet
 
       def image(link, title, alt_text)
         filename = File.basename(link, ".*")
-        if @image_caption
+        if @image_table && alt_text =~ /\ATable:\s*(.*)/
+          caption = $1
+          "//imgtable[#{filename}][#{caption}]{\n//}\n"
+        elsif @image_caption
           "//image[#{filename}][#{alt_text}]{\n//}\n"
         else
           "//indepimage[#{filename}]\n"
