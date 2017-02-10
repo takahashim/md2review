@@ -37,7 +37,7 @@ class ReVIEWTest < Test::Unit::TestCase
 
   def test_href_in_footnote
     text = %Q[aaa [foo](http://example.jp/foo), [bar](http://example.jp/bar), [foo2](http://example.jp/foo)]
-    rd = MD2ReVIEW::Markdown.new({:link_in_footnote => true},{}).render(text)
+    rd = MD2ReVIEW::Markdown.new({link_in_footnote: true},{}).render(text)
     assert_equal %Q|\n\naaa foo@<fn>{3ccd7167b80081c737b749ad1c27dcdc}, bar@<fn>{9dcab303478e38d32d83ae19daaea9f6}, foo2@<fn>{3ccd7167b80081c737b749ad1c27dcdc}\n\n\n//footnote[3ccd7167b80081c737b749ad1c27dcdc][http://example.jp/foo]\n\n//footnote[9dcab303478e38d32d83ae19daaea9f6][http://example.jp/bar]\n|, rd
   end
 
@@ -88,22 +88,22 @@ class ReVIEWTest < Test::Unit::TestCase
   end
 
   def test_indepimage
-    rev = render_with({}, "![test](path/to/image.jpg)\n",{:disable_image_caption => true})
+    rev = render_with({}, "![test](path/to/image.jpg)\n", {disable_image_caption: true})
     assert_equal "\n\n//indepimage[image]\n\n\n", rev
   end
 
   def test_indepimage_empty
-    rev = render_with({}, "![](path/to/image.jpg)\n",{:empty_image_caption => true})
+    rev = render_with({}, "![](path/to/image.jpg)\n", {empty_image_caption: true})
     assert_equal "\n\n//indepimage[image]\n\n\n", rev
   end
 
   def test_indepimage_not_empty
-    rev = render_with({}, "![test](path/to/image.jpg)\n",{:empty_image_caption => true})
+    rev = render_with({}, "![test](path/to/image.jpg)\n", {empty_image_caption: true})
     assert_equal "\n\n//image[image][test]{\n//}\n\n\n", rev
   end
 
   def test_image_table
-    rev = render_with({}, "![Table:test](path/to/image.jpg)\n",{:image_table => true})
+    rev = render_with({}, "![Table:test](path/to/image.jpg)\n", {image_table: true})
     assert_equal "\n\n//imgtable[image][test]{\n//}\n\n\n", rev
   end
 
@@ -133,12 +133,12 @@ class ReVIEWTest < Test::Unit::TestCase
   end
 
   def test_table_with_empty_cell
-    rd = render_with({:tables => true}, %Q[\n\n| a  |  b |  c |\n|----|----|----|\n| A  | B  | C  |\n|    | B  |  C |\n| .A | B  |  C |\n\n])
+    rd = render_with({tables: true}, %Q[\n\n| a  |  b |  c |\n|----|----|----|\n| A  | B  | C  |\n|    | B  |  C |\n| .A | B  |  C |\n\n])
     assert_equal "//table[tbl1][]{\na\tb\tc\n-----------------\nA\tB\tC\n.\tB\tC\n..A\tB\tC\n//}\n", rd
   end
 
   def test_table_with_caption
-    rd = render_with({:tables => true}, <<-EOB, {:table_caption => true})
+    rd = render_with({tables: true}, <<-EOB, {table_caption: true})
 
 Table: caption test
 
@@ -160,7 +160,7 @@ EOB
   end
 
   def test_code_fence_with_caption
-    rd = render_with({:fenced_code_blocks => true}, %Q[~~~ {caption="test"}\ndef foo\n  p "test"\nend\n~~~\n])
+    rd = render_with({fenced_code_blocks: true}, %Q[~~~ {caption="test"}\ndef foo\n  p "test"\nend\n~~~\n])
     assert_equal %Q[\n//emlist[test]{\ndef foo\n  p "test"\nend\n//}\n], rd
   end
 
@@ -170,41 +170,41 @@ EOB
   end
 
   def test_code_fence_with_lang
-    rd = render_with({:fenced_code_blocks => true}, %Q[~~~ruby\ndef foo\n  p "test"\nend\n~~~\n])
+    rd = render_with({fenced_code_blocks: true}, %Q[~~~ruby\ndef foo\n  p "test"\nend\n~~~\n])
     assert_equal %Q[\n//emlist[][ruby]{\ndef foo\n  p "test"\nend\n//}\n], rd
   end
 
   def test_code_fence_with_console
-    rd = render_with({:fenced_code_blocks => true}, %Q[~~~console\ndef foo\n  p "test"\nend\n~~~\n])
+    rd = render_with({fenced_code_blocks: true}, %Q[~~~console\ndef foo\n  p "test"\nend\n~~~\n])
     assert_equal %Q[\n//emlist[][console]{\ndef foo\n  p "test"\nend\n//}\n], rd
-    rd = render_with({:fenced_code_blocks => true},
+    rd = render_with({fenced_code_blocks: true},
                       %Q[~~~console\ndef foo\n  p "test"\nend\n~~~\n],
-                     {:enable_cmd => true})
+                     {enable_cmd: true})
     assert_equal %Q[\n//cmd{\ndef foo\n  p "test"\nend\n//}\n], rd
   end
 
   def test_group_ruby
-    rd = render_with({:ruby => true}, "{電子出版|でんししゅっぱん}を手軽に\n")
+    rd = render_with({ruby: true}, "{電子出版|でんししゅっぱん}を手軽に\n")
     assert_equal %Q[\n\n@<ruby>{電子出版,でんししゅっぱん}を手軽に\n\n], rd
   end
 
   def test_tcy
-    rd = render_with({:tcy => true}, "昭和^53^年\n")
+    rd = render_with({tcy: true}, "昭和^53^年\n")
     assert_equal %Q[\n\n昭和@<tcy>{53}年\n\n], rd
   end
 
   def test_math
-    rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{:math => true})
+    rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{math: true})
     assert_equal %Q[\n\nその結果、@<m>{y=ax^2+bx+c}の式が得られます。\n\n], rd
   end
 
   def test_multi_math
-    rd = render_with({}, "その結果、$$y=a_2x^2+b_2x+c_2$$の式が得られます。$$a_2$$は2次の係数、$$b_2$$は1次の係数、$$c_2$$は定数です。",{:math => true})
+    rd = render_with({}, "その結果、$$y=a_2x^2+b_2x+c_2$$の式が得られます。$$a_2$$は2次の係数、$$b_2$$は1次の係数、$$c_2$$は定数です。",{math: true})
     assert_equal %Q[\n\nその結果、@<m>{y=a_2x^2+b_2x+c_2}の式が得られます。@<m>{a_2}は2次の係数、@<m>{b_2}は1次の係数、@<m>{c_2}は定数です。\n\n], rd
   end
 
   def test_math2
-    rd = render_with({}, <<-'EOB',{:math => true})
+    rd = render_with({}, <<-'EOB',{math: true})
 $$X = \{ {x_1}, \cdots ,{x_n} \}$$、$$m$$、$${\mu _X}$$、$$\sigma _X^2$$、$$\{ {\hat x_1}, \cdots ,{\hat x_n} \}$$
 
 $$\mathbf{W} = ({w_1}, \cdots ,{w_n})$$、$$\sqrt {w_1^2 + \cdots  + w_n^2} $$、$$\left| {w_1^{}} \right| + \left| {w_2^{}} \right| +  \cdots  + \left| {w_n^{}} \right|$$。
@@ -222,12 +222,12 @@ EOB
   end
 
   def test_no_math
-    rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{:math => false})
+    rd = render_with({}, "その結果、$$y=ax^2+bx+c$$の式が得られます。",{math: false})
     assert_equal %Q[\n\nその結果、$$y=ax^2+bx+c$$の式が得られます。\n\n], rd
   end
 
   def test_math_block
-    rd = render_with({:fenced_code_blocks => true}, <<-EOB,{:math => true})
+    rd = render_with({fenced_code_blocks: true}, <<-EOB,{math: true})
 求める式は以下のようになります。
 
 ```math
@@ -247,12 +247,12 @@ EOB
   end
 
   def test_footnote
-    rd = render_with({:footnotes=>true}, "これは*脚注*付き[^1]の段落です。\n\n\n[^1]: そして、これが脚注です。\n")
+    rd = render_with({footnotes: true}, "これは*脚注*付き[^1]の段落です。\n\n\n[^1]: そして、これが脚注です。\n")
     assert_equal %Q|\n\nこれは@<b>{脚注}付き@<fn>{1}の段落です。\n\n\n//footnote[1][そして、これが脚注です。]\n|, rd
   end
 
   def test_autolink
-    rd = render_with({:autolink => true}, "リンクの[テスト](http://example.jp/test)です。\nhttp://example.jp/test2/\n")
+    rd = render_with({autolink: true}, "リンクの[テスト](http://example.jp/test)です。\nhttp://example.jp/test2/\n")
     assert_equal %Q[\n\nリンクの@<href>{http://example.jp/test,テスト}です。\n@<href>{http://example.jp/test2/}\n\n], rd
   end
 

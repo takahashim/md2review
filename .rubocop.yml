@@ -1,0 +1,87 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  DisabledByDefault: true
+
+Style/HashSyntax:
+  Enabled: true
+
+Style/EmptyLines:
+  Enabled: true
+
+Style/TrailingBlankLines:
+  Enabled: true
+
+Style/TrailingWhitespace:
+  Enabled: true
+
+Style/MethodDefParentheses:
+  Enabled: true
+
+
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
+  Enabled: true
+
+# EnforcedStyle: empty_lines => 16 offenses
+# EnforcedStyle: no_empty_lines => 0 offense
+Style/EmptyLinesAroundBlockBody:
+  EnforcedStyle: no_empty_lines
+  Enabled: true
+
+Style/MethodDefParentheses:
+  EnforcedStyle: require_parentheses
+  Enabled: true
+
+Style/MethodName:
+  EnforcedStyle: snake_case
+  Enabled: true
+
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: no_space
+  Enabled: true
+
+Style/SpaceInsideStringInterpolation:
+  EnforcedStyle: no_space
+  Enabled: true
+
+Style/VariableName:
+  EnforcedStyle: snake_case
+  Enabled: true
+
+Style/MissingElse:
+  EnforcedStyle: case
+  Enabled: true
+
+Lint/Debugger:
+  Enabled: true
+
+Lint/DefEndAlignment:
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Enabled: true
+
+Lint/DuplicateCaseCondition:
+  Enabled: true
+
+Lint/DuplicateMethods:
+  Enabled: true
+
+Lint/DuplicatedKey:
+  Enabled: true
+
+Lint/ElseLayout:
+  Enabled: true
+
+Lint/EndInMethod:
+  Enabled: true
+
+Lint/HandleExceptions:
+  Enabled: true
+
+Lint/ImplicitStringConcatenation:
+  Enabled: true
+
+Lint/MultipleCompare:
+  Enabled: true

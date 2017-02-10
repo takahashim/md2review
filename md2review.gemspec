@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency('redcarpet', '>2.0.0')
   gem.add_development_dependency "rake"
   gem.add_development_dependency "test-unit"
+  gem.add_development_dependency "rubocop"
 end
