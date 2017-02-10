@@ -113,6 +113,10 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal " 1. aaa@<br>{}@<icon>{foo}\n 1. bbb\n 1. ccc\n\n", @markdown.render("1. aaa  \n    ![test](foo.jpg)\n2. bbb\n3. ccc\n")
   end
 
+  def test_olist_and_ulist
+    assert_equal " * ddd\n\n 1. aaa\n 1. bbb\n 1. ccc\n\n * eee\n\n", @markdown.render("* ddd\n\n1. aaa\n2. bbb\n3. ccc\n\n* eee\n")
+  end
+
   def test_table_with_empty_cell
     rd = render_with({:tables => true}, %Q[\n\n| a  |  b |  c |\n|----|----|----|\n| A  | B  | C  |\n|    | B  |  C |\n| .A | B  |  C |\n\n])
     assert_equal "//table[tbl1][]{\na\tb\tc\n-----------------\nA\tB\tC\n.\tB\tC\n..A\tB\tC\n//}\n", rd
