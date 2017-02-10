@@ -41,6 +41,9 @@ Or install it yourself as:
 
 ## History
 
+* 1.10.0
+    * add: option --image-table to support `//imgtable` with `![Table:foo](...)`
+    * fix: olist before/after ulist
 * 1.9.0
     * fix: fix math support for complex cases
 * 1.8.0
