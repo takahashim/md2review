@@ -68,9 +68,10 @@ module Redcarpet
         text.to_s.gsub(/,/){ '\\,' }
       end
 
+      alias_method :escape_comma, :escape_href
+
       def block_code(code, language)
         code_text = normal_text(code).chomp
-        lang = ""
         caption = ""
         if language
           if language =~ /caption=\"(.*)\"/
@@ -189,7 +190,7 @@ module Redcarpet
           footnotes(content) + footnote_ref(key)
         else
           content = escape_inline(remove_inline_markups(content))
-          "@<href>{#{escape_href(link)},#{content}}"
+          "@<href>{#{escape_href(link)},#{escape_comma(content)}}"
         end
       end
 
