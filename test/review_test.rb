@@ -2,6 +2,9 @@
 rootdir = File.dirname(File.dirname(__FILE__))
 $LOAD_PATH.unshift "#{rootdir}/lib"
 
+require 'coveralls'
+Coveralls.wear!
+
 if defined? Encoding
   Encoding.default_internal = 'UTF-8'
 end
