@@ -295,12 +295,15 @@ test
   end
 
   def test_hr
-    assert_respond_to @markdown, :render
-
     expected = <<-EOB
 
 //hr
     EOB
     assert_equal expected, @markdown.render("***\n")
+  end
+
+  def test_strikethrough
+    rd = render_with({strikethrough: true}, "~~test~~ ~~test2~~\n")
+    assert_equal "\n\n@<del>{test} @<del>{test2}\n\n", rd
   end
 end
