@@ -76,6 +76,11 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n===== AAA\n\n\nBBB\n\n\n====== ccc\n\n\nddd\n\n", @markdown.render("#####AAA\nBBB\n\n######ccc\n\nddd\n")
   end
 
+  def test_header_offset
+    rev = render_with({}, "###test\n", {header_offset: 2})
+    assert_equal "\n= test\n", rev
+  end
+
   def test_header_attributes
     assert_respond_to @markdown, :render
     assert_equal "\n\#@# header_attribute: {-}\n= AAA\n\n\#@# header_attribute: {\#foo .bar title=hoge}\n= BBB\n", @markdown.render("\#AAA  {-}\n\n\#BBB {\#foo .bar title=hoge}\n\n")
