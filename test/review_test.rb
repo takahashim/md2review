@@ -270,7 +270,7 @@ EOB
   end
 
   def test_block_quote
-    expected = <<~EOB
+    expected = <<-EOB
 
 //quote{
 test
@@ -282,7 +282,7 @@ test2
   end
 
   def test_block_html
-    expected = <<~EOB
+    expected = <<-EOB
 
 //emlist{
 XXX: BLOCK_HTML: YOU SHOULD REWRITE IT
@@ -297,7 +297,7 @@ test
   def test_hr
     assert_respond_to @markdown, :render
 
-    expected = <<~EOB
+    expected = <<-EOB
 
 //hr
     EOB
