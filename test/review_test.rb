@@ -38,6 +38,11 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n\n@<href>{http://exmaple.com/foo\\,bar,example}\n\n", @markdown.render("[example](http://exmaple.com/foo,bar)")
   end
 
+  def test_href_with_comma2
+    assert_respond_to @markdown, :render
+    assert_equal "\n\n@<href>{http://exmaple.com/foo,bar\\,example}\n\n", @markdown.render("[bar,example](http://exmaple.com/foo)")
+  end
+
   def test_href_in_footnote
     text = %Q[aaa [foo](http://example.jp/foo), [bar](http://example.jp/bar), [foo2](http://example.jp/foo)]
     rd = MD2ReVIEW::Markdown.new({link_in_footnote: true},{}).render(text)
