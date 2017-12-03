@@ -71,6 +71,11 @@ class ReVIEWTest < Test::Unit::TestCase
     assert_equal "\n= AAA\n\n\nBBB\n\n\n== ccc\n\n\nddd\n\n", @markdown.render("#AAA\nBBB\n\n##ccc\n\nddd\n")
   end
 
+  def test_header34
+    assert_respond_to @markdown, :render
+    assert_equal "\n=== AAA\n\n\nBBB\n\n\n==== ccc\n\n\nddd\n\n", @markdown.render("###AAA\nBBB\n\n####ccc\n\nddd\n")
+  end
+
   def test_header56
     assert_respond_to @markdown, :render
     assert_equal "\n===== AAA\n\n\nBBB\n\n\n====== ccc\n\n\nddd\n\n", @markdown.render("#####AAA\nBBB\n\n######ccc\n\nddd\n")
