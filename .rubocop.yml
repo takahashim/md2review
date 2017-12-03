@@ -5,13 +5,13 @@ AllCops:
 Style/HashSyntax:
   Enabled: true
 
-Style/EmptyLines:
+Layout/EmptyLines:
   Enabled: true
 
-Style/TrailingBlankLines:
+Layout/TrailingBlankLines:
   Enabled: true
 
-Style/TrailingWhitespace:
+Layout/TrailingWhitespace:
   Enabled: false
 
 Style/MethodDefParentheses:
@@ -24,7 +24,7 @@ Style/BarePercentLiterals:
 
 # EnforcedStyle: empty_lines => 16 offenses
 # EnforcedStyle: no_empty_lines => 0 offense
-Style/EmptyLinesAroundBlockBody:
+Layout/EmptyLinesAroundBlockBody:
   EnforcedStyle: no_empty_lines
   Enabled: true
 
@@ -36,12 +36,12 @@ Style/MethodName:
   EnforcedStyle: snake_case
   Enabled: true
 
-Style/SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
   EnforcedStyleForEmptyBraces: no_space
   Enabled: true
 
-Style/SpaceInsideStringInterpolation:
+Layout/SpaceInsideStringInterpolation:
   EnforcedStyle: no_space
   Enabled: true
 
