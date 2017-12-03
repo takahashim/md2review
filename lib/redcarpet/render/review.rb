@@ -131,7 +131,9 @@ module Redcarpet
         when 6
           buf << "\n====== #{title}\n"
         else
+          # :nocov:
           raise "too long header"
+          # :nocov:
         end
         buf
       end
@@ -237,7 +239,9 @@ module Redcarpet
               ret << " * " << item
             end
           else
+            # :nocov:
             raise "invalid type: #{list_type}"
+            # :nocov:
           end
         end
         ret << "\n"
@@ -256,7 +260,9 @@ module Redcarpet
           item = content.gsub(/\n(\s*[^* ])/){ $1 }.strip
           "#{item}\n"
         else
+          # :nocov:
           raise "invalid type: #{list_type}"
+          # :nocov:
         end
       end
 
