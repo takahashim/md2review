@@ -269,4 +269,38 @@ EOB
     assert_equal %Q[\n\nリンクの@<href>{http://example.jp/test,テスト}です。\nhttp://example.jp/test2/\n\n], rd
   end
 
+  def test_block_quote
+    expected = <<~EOB
+
+//quote{
+test
+test2
+
+//}
+    EOB
+    assert_equal expected, @markdown.render("> test\n> test2\n> \n")
+  end
+
+  def test_block_html
+    expected = <<~EOB
+
+//emlist{
+XXX: BLOCK_HTML: YOU SHOULD REWRITE IT
+<div>
+test
+</div>
+//}
+    EOB
+    assert_equal expected, @markdown.render("<div>\ntest\n</div>\n")
+  end
+
+  def test_hr
+    assert_respond_to @markdown, :render
+
+    expected = <<~EOB
+
+//hr
+    EOB
+    assert_equal expected, @markdown.render("***\n")
+  end
 end
