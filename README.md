@@ -43,6 +43,9 @@ Or install it yourself as:
 
 ## History
 
+### v1.12.0
+* fix: anchor content should be escaped
+
 ### v1.11.0
 * add: option --empty-image-caption: switch to use `//image` or `//indepimage` with caption
 
