@@ -43,6 +43,9 @@ Or install it yourself as:
 
 ## History
 
+### v1.12.1
+* fix: typo (@yukirii)
+
 ### v1.12.0
 * fix: anchor content should be escaped
 
