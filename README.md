@@ -21,7 +21,7 @@ You can use the commmand md2review as:
 * `--render-link-in-footnote`: enable links in footnote.
 * `--render-enable-cmd`: support `//cmd{...//}` for `shell-session` and `console` blocks
 * `--render-math`: support `@<m>{...}` and `//texequation{...}`
-* `--render-table-cation`: support table caption before table like `Table: some captions`
+* `--render-table-caption`: support table caption before table like `Table: some captions`
 * `--parse-no-intra-emphasis`: do not parse emphasis inside of words.
 * `--parse-autolink`: parse links even when they are not enclosed in `<>` characters.
 * `--render-empty-image-caption`: use `//image` with caption and use `//indepimage` without caption
