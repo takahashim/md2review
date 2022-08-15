@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'uri'
 
 module Redcarpet
   module Render
@@ -170,12 +171,19 @@ module Redcarpet
       end
 
       def image(link, title, alt_text)
-        filename = File.basename(link, ".*")
+        uri = URI.parse(link)
+        filename = File.basename(uri.path, ".*")
+        allowed_params = ['scale']
+        option = if uri.query
+                   filtered_query = URI.decode_www_form(uri.query).filter{ |x| allowed_params.include?(x.first) }
+                   !filtered_query.empty? && "[#{URI.encode_www_form(filtered_query)}]"
+                 end
+
         if @image_table && alt_text =~ /\ATable:\s*(.*)/
           caption = $1
           "//imgtable[#{filename}][#{caption}]{\n//}\n"
         elsif @image_caption || (@empty_image_caption && alt_text.to_s.size > 0)
-          "//image[#{filename}][#{alt_text}]{\n//}\n"
+          "//image[#{filename}][#{alt_text}]#{option}{\n//}\n"
         else
           "//indepimage[#{filename}]\n"
         end

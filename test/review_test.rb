@@ -99,6 +99,7 @@ class ReVIEWTest < Test::Unit::TestCase
 
   def test_image
     assert_equal "\n\n//image[image][test]{\n//}\n\n\n", @markdown.render("![test](path/to/image.jpg)\n")
+    assert_equal "\n\n//image[image][test][scale=0.5]{\n//}\n\n\n", @markdown.render("![test](path/to/image.jpg?scale=0.5&foo=bar)\n")
   end
 
   def test_indented_image
