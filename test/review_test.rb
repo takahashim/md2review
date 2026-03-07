@@ -270,6 +270,11 @@ EOB
     assert_equal %Q|\n\nこれは@<b>{脚注}付き@<fn>{1}の段落です。\n\n\n//footnote[1][そして、これが脚注です。]\n|, rd
   end
 
+  def test_table_after_footnote_def
+    rd = render_with({footnotes: true, tables: true}, "foo[^bar], baz.\n[^bar]: https://example.com/\n\n\n| A | B |\n| --- | --- |\n| foo | bar |\n")
+    assert_equal %Q[\n\nfoo@<fn>{1}, baz.\n\n//table[tbl1][]{\nA\tB\n-----------------\nfoo\tbar\n//}\n\n//footnote[1][https://example.com/]\n], rd
+  end
+
   def test_autolink
     rd = render_with({autolink: true}, "リンクの[テスト](http://example.jp/test)です。\nhttp://example.jp/test2/\n")
     assert_equal %Q[\n\nリンクの@<href>{http://example.jp/test,テスト}です。\n@<href>{http://example.jp/test2/}\n\n], rd

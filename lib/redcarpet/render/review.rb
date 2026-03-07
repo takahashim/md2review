@@ -42,6 +42,9 @@ module Redcarpet
             end
           end
         end
+        text = text.gsub(/((?:^\[\^[^\]]+\]:.*(?:\n[ \t]{4}.*)*\n)+)(\n+)((?:\|[^\n]*\n)+)/) do
+          "\n#{$2}#{$3}#{$1}"
+        end
         text
       end
 
