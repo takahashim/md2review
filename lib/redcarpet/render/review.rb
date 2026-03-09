@@ -35,7 +35,7 @@ module Redcarpet
         counter = -1
         if @math
           while %r|\$\$(.+?)\$\$| =~ text
-            text.sub!(%r|\$\$(.+?)\$\$|) do
+            text = text.sub(%r|\$\$(.+?)\$\$|) do
               counter += 1
               @math_buf[counter] = $1
               "〓MATH:#{counter}:〓"
@@ -112,7 +112,7 @@ module Redcarpet
       end
 
       def header(title, level, anchor="")
-        buf = ""
+        buf = +""
         if /\s+(\{.*?\})\s*$/ =~ title
           buf << "\n#@# header_attribute: #{$1}"
           title = $`
@@ -230,7 +230,7 @@ module Redcarpet
       end
 
       def list(content, list_type)
-        ret = ""
+        ret = +""
         content.each_line do |item|
           case list_type
           when :ordered
