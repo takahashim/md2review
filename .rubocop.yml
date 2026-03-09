@@ -1,6 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.6
   DisabledByDefault: true
+  SuggestExtensions: false
 
 Style/HashSyntax:
   Enabled: true
