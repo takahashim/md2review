@@ -8,7 +8,7 @@ This command uses Redcarpet gem to parse markdown.
 
 ## Usage
 
-You can use the commmand md2review as:
+You can use the command md2review as:
 
     $ md2review [options] your-document.md > your-document.re
 
@@ -17,7 +17,7 @@ You can use the commmand md2review as:
 * `--version`: show version
 * `--help`: show help
 * `--render-header-offset = N`: use offset of header levels
-* `--render-disable-image-caption`: disable image caption; coverting into `//indepimage`
+* `--render-disable-image-caption`: disable image caption; converting into `//indepimage`
 * `--render-link-in-footnote`: enable links in footnote.
 * `--render-enable-cmd`: support `//cmd{...//}` for `shell-session` and `console` blocks
 * `--render-math`: support `@<m>{...}` and `//texequation{...}`

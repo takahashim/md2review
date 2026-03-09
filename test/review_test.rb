@@ -30,17 +30,17 @@ class ReVIEWTest < Test::Unit::TestCase
 
   def test_href
     assert_respond_to @markdown, :render
-    assert_equal "\n\n@<href>{http://exmaple.com,example}\n\n", @markdown.render("[example](http://exmaple.com)\n")
+    assert_equal "\n\n@<href>{http://example.com,example}\n\n", @markdown.render("[example](http://example.com)\n")
   end
 
   def test_href_with_comma
     assert_respond_to @markdown, :render
-    assert_equal "\n\n@<href>{http://exmaple.com/foo\\,bar,example}\n\n", @markdown.render("[example](http://exmaple.com/foo,bar)")
+    assert_equal "\n\n@<href>{http://example.com/foo\\,bar,example}\n\n", @markdown.render("[example](http://example.com/foo,bar)")
   end
 
   def test_href_with_comma2
     assert_respond_to @markdown, :render
-    assert_equal "\n\n@<href>{http://exmaple.com/foo,bar\\,example}\n\n", @markdown.render("[bar,example](http://exmaple.com/foo)")
+    assert_equal "\n\n@<href>{http://example.com/foo,bar\\,example}\n\n", @markdown.render("[bar,example](http://example.com/foo)")
   end
 
   def test_href_in_footnote
@@ -50,20 +50,20 @@ class ReVIEWTest < Test::Unit::TestCase
   end
 
   def test_href_with_emphasised_anchor
-    assert_equal "\n\n@<href>{http://exmaple.com/,example}\n\n", @markdown.render("[*example*](http://exmaple.com/)")
+    assert_equal "\n\n@<href>{http://example.com/,example}\n\n", @markdown.render("[*example*](http://example.com/)")
   end
 
   def test_href_with_double_emphasised_anchor
-    assert_equal "\n\n@<href>{http://exmaple.com/,example}\n\n", @markdown.render("[**example**](http://exmaple.com/)")
+    assert_equal "\n\n@<href>{http://example.com/,example}\n\n", @markdown.render("[**example**](http://example.com/)")
   end
 
   def test_href_with_codespan_anchor
-    assert_equal "\n\n@<href>{http://exmaple.com/,example}\n\n", @markdown.render("[`example`](http://exmaple.com/)")
+    assert_equal "\n\n@<href>{http://example.com/,example}\n\n", @markdown.render("[`example`](http://example.com/)")
   end
 
   def test_emphasis_with_href
     assert_respond_to @markdown, :render
-    assert_equal "\n\n@<b>{{hello\\} }@<href>{http://exmaple.com/foo\\,bar,example}@<b>{ world}\n\n", @markdown.render("*{hello} [example](http://exmaple.com/foo,bar) world*")
+    assert_equal "\n\n@<b>{{hello\\} }@<href>{http://example.com/foo\\,bar,example}@<b>{ world}\n\n", @markdown.render("*{hello} [example](http://example.com/foo,bar) world*")
   end
 
   def test_header
